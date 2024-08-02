@@ -1,0 +1,665 @@
+USE [RailwaySystem]
+GO
+/****** Object: Table [dbo].[__EFMigrationsHistory]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[__EFMigrationsHistory]') AND type ='U'))
+BEGIN
+	DROP TABLE [dbo].[__EFMigrationsHistory]
+END
+
+GO
+SET ANSI_NULLS ON
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[__EFMigrationsHistory] (
+	[MigrationId] nvarchar(150) NOT NULL,
+	[ProductVersion] nvarchar(32) NOT NULL
+) ON [PRIMARY]
+WITH(DATA_COMPRESSION = NONE)
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[__EFMigrationsHistory]',
+	@OptionName  = 'vardecimal storage format',
+	@OptionValue  = 'OFF'
+GO
+ALTER TABLE [dbo].[__EFMigrationsHistory] SET(LOCK_ESCALATION = TABLE)
+
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[__EFMigrationsHistory]',
+	@OptionName  = 'table lock on bulk load',
+	@OptionValue  = 'OFF'
+GO
+/****** Object: Table [dbo].[bankCred]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[bankCred]') AND type ='U'))
+BEGIN
+	DROP TABLE [dbo].[bankCred]
+END
+
+GO
+SET ANSI_NULLS ON
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[bankCred] (
+	[BankCredId] int IDENTITY(1, 1),
+	[UserId] int NOT NULL,
+	[BankName] varchar(50) NOT NULL,
+	[CardNumber] nvarchar(11) NOT NULL,
+	[isActive] bit NOT NULL
+) ON [PRIMARY]
+WITH(DATA_COMPRESSION = NONE)
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[bankCred]',
+	@OptionName  = 'vardecimal storage format',
+	@OptionValue  = 'OFF'
+GO
+ALTER TABLE [dbo].[bankCred] SET(LOCK_ESCALATION = TABLE)
+
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[bankCred]',
+	@OptionName  = 'table lock on bulk load',
+	@OptionValue  = 'OFF'
+GO
+/****** Object: Table [dbo].[bookings]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[bookings]') AND type ='U'))
+BEGIN
+	DROP TABLE [dbo].[bookings]
+END
+
+GO
+SET ANSI_NULLS ON
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[bookings] (
+	[BookingId] int IDENTITY(700000, 1),
+	[TrainId] int NULL,
+	[PassengerId] int NULL,
+	[UserId] int NOT NULL,
+	[Classes] nvarchar(max) NULL,
+	[fare] decimal(10, 2) NOT NULL,
+	[Date] datetime2(7) NOT NULL,
+	[Status] nvarchar(max) NULL,
+	[SeatNum] int NOT NULL,
+	[isActive] bit NOT NULL,
+	[QuotaId] int NULL
+) ON [PRIMARY]
+ TEXTIMAGE_ON [PRIMARY]
+WITH(DATA_COMPRESSION = NONE)
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[bookings]',
+	@OptionName  = 'vardecimal storage format',
+	@OptionValue  = 'OFF'
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[bookings]',
+	@OptionName  = 'large value types out of row',
+	@OptionValue  = 'OFF'
+GO
+ALTER TABLE [dbo].[bookings] SET(LOCK_ESCALATION = TABLE)
+
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[bookings]',
+	@OptionName  = 'table lock on bulk load',
+	@OptionValue  = 'OFF'
+GO
+/****** Object: Table [dbo].[passenger]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[passenger]') AND type ='U'))
+BEGIN
+	DROP TABLE [dbo].[passenger]
+END
+
+GO
+SET ANSI_NULLS ON
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[passenger] (
+	[PassengerId] int IDENTITY(1, 1),
+	[UserId] int NOT NULL,
+	[PName] nvarchar(max) NULL,
+	[Age] int NOT NULL,
+	[gender] nvarchar(max) NULL,
+	[Class] nvarchar(max) NULL
+) ON [PRIMARY]
+ TEXTIMAGE_ON [PRIMARY]
+WITH(DATA_COMPRESSION = NONE)
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[passenger]',
+	@OptionName  = 'vardecimal storage format',
+	@OptionValue  = 'OFF'
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[passenger]',
+	@OptionName  = 'large value types out of row',
+	@OptionValue  = 'OFF'
+GO
+ALTER TABLE [dbo].[passenger] SET(LOCK_ESCALATION = TABLE)
+
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[passenger]',
+	@OptionName  = 'table lock on bulk load',
+	@OptionValue  = 'OFF'
+GO
+/****** Object: Table [dbo].[quotas]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[quotas]') AND type ='U'))
+BEGIN
+	DROP TABLE [dbo].[quotas]
+END
+
+GO
+SET ANSI_NULLS ON
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[quotas] (
+	[QuotaId] int IDENTITY(1, 1),
+	[type] varchar(50) NULL,
+	[Percentage] int NOT NULL,
+	[isActive] bit NOT NULL
+) ON [PRIMARY]
+WITH(DATA_COMPRESSION = NONE)
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[quotas]',
+	@OptionName  = 'vardecimal storage format',
+	@OptionValue  = 'OFF'
+GO
+ALTER TABLE [dbo].[quotas] SET(LOCK_ESCALATION = TABLE)
+
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[quotas]',
+	@OptionName  = 'table lock on bulk load',
+	@OptionValue  = 'OFF'
+GO
+/****** Object: Table [dbo].[seat]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[seat]') AND type ='U'))
+BEGIN
+	DROP TABLE [dbo].[seat]
+END
+
+GO
+SET ANSI_NULLS ON
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[seat] (
+	[SeatId] int IDENTITY(1, 1),
+	[TrainId] int NOT NULL,
+	[FirstAC] int NOT NULL,
+	[SecondAC] int NOT NULL,
+	[Sleeper] int NOT NULL,
+	[Total] int NOT NULL
+) ON [PRIMARY]
+WITH(DATA_COMPRESSION = NONE)
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[seat]',
+	@OptionName  = 'vardecimal storage format',
+	@OptionValue  = 'OFF'
+GO
+ALTER TABLE [dbo].[seat] SET(LOCK_ESCALATION = TABLE)
+
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[seat]',
+	@OptionName  = 'table lock on bulk load',
+	@OptionValue  = 'OFF'
+GO
+/****** Object: Table [dbo].[tickets]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[tickets]') AND type ='U'))
+BEGIN
+	DROP TABLE [dbo].[tickets]
+END
+
+GO
+SET ANSI_NULLS ON
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[tickets] (
+	[TicketId] int IDENTITY(1, 1),
+	[UserId] int NULL,
+	[TransactionId] int NULL,
+	[BookingId] int NOT NULL DEFAULT ((0)),
+	[PassengerId] int NOT NULL DEFAULT ((0)),
+	[TrainId] int NOT NULL DEFAULT ((0))
+) ON [PRIMARY]
+WITH(DATA_COMPRESSION = NONE)
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[tickets]',
+	@OptionName  = 'vardecimal storage format',
+	@OptionValue  = 'OFF'
+GO
+ALTER TABLE [dbo].[tickets] SET(LOCK_ESCALATION = TABLE)
+
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[tickets]',
+	@OptionName  = 'table lock on bulk load',
+	@OptionValue  = 'OFF'
+GO
+/****** Object: Table [dbo].[trains]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[trains]') AND type ='U'))
+BEGIN
+	DROP TABLE [dbo].[trains]
+END
+
+GO
+SET ANSI_NULLS ON
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[trains] (
+	[TrainId] int IDENTITY(10000, 1),
+	[Name] varchar(25) NOT NULL,
+	[ArrivalTime] nvarchar(max) NULL,
+	[DepartureTime] nvarchar(max) NULL,
+	[ArrivalDate] datetime2(7) NOT NULL,
+	[DepartureDate] datetime2(7) NOT NULL,
+	[ArrivalStation] nvarchar(max) NULL,
+	[DepartureStation] nvarchar(max) NULL,
+	[distance] float(53) NOT NULL,
+	[isActive] bit NOT NULL
+) ON [PRIMARY]
+ TEXTIMAGE_ON [PRIMARY]
+WITH(DATA_COMPRESSION = NONE)
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[trains]',
+	@OptionName  = 'vardecimal storage format',
+	@OptionValue  = 'OFF'
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[trains]',
+	@OptionName  = 'large value types out of row',
+	@OptionValue  = 'OFF'
+GO
+ALTER TABLE [dbo].[trains] SET(LOCK_ESCALATION = TABLE)
+
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[trains]',
+	@OptionName  = 'table lock on bulk load',
+	@OptionValue  = 'OFF'
+GO
+/****** Object: Table [dbo].[transaction]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[transaction]') AND type ='U'))
+BEGIN
+	DROP TABLE [dbo].[transaction]
+END
+
+GO
+SET ANSI_NULLS ON
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[transaction] (
+	[TransactionId] int IDENTITY(50000, 1),
+	[BookingId] int NULL,
+	[Fare] decimal(18, 4) NOT NULL,
+	[TransactionStatus] varchar(20) NOT NULL
+) ON [PRIMARY]
+WITH(DATA_COMPRESSION = NONE)
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[transaction]',
+	@OptionName  = 'vardecimal storage format',
+	@OptionValue  = 'OFF'
+GO
+ALTER TABLE [dbo].[transaction] SET(LOCK_ESCALATION = TABLE)
+
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[transaction]',
+	@OptionName  = 'table lock on bulk load',
+	@OptionValue  = 'OFF'
+GO
+/****** Object: Table [dbo].[users]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[users]') AND type ='U'))
+BEGIN
+	DROP TABLE [dbo].[users]
+END
+
+GO
+SET ANSI_NULLS ON
+SET QUOTED_IDENTIFIER ON
+
+CREATE TABLE [dbo].[users] (
+	[UserId] int IDENTITY(1, 1),
+	[Name] varchar(50) NOT NULL,
+	[Email] varchar(50) NOT NULL,
+	[Address] varchar(100) NOT NULL,
+	[Mobile] nvarchar(max) NULL,
+	[Password] varchar(25) NOT NULL,
+	[Role] varchar(15) NULL,
+	[IsActive] bit NOT NULL
+) ON [PRIMARY]
+ TEXTIMAGE_ON [PRIMARY]
+WITH(DATA_COMPRESSION = NONE)
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[users]',
+	@OptionName  = 'vardecimal storage format',
+	@OptionValue  = 'OFF'
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[users]',
+	@OptionName  = 'large value types out of row',
+	@OptionValue  = 'OFF'
+GO
+ALTER TABLE [dbo].[users] SET(LOCK_ESCALATION = TABLE)
+
+GO
+EXECUTE [sp_tableoption]
+	@TableNamePattern  = N'[dbo].[users]',
+	@OptionName  = 'table lock on bulk load',
+	@OptionValue  = 'OFF'
+GO
+/****** Object: Primary Key [PK___EFMigrationsHistory]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PK___EFMigrationsHistory]') AND type IN ('PK', 'UQ')))
+BEGIN
+	ALTER TABLE [dbo].[__EFMigrationsHistory]
+	DROP CONSTRAINT [PK___EFMigrationsHistory]
+END
+
+GO
+ALTER TABLE [dbo].[__EFMigrationsHistory]
+ ADD CONSTRAINT [PK___EFMigrationsHistory] PRIMARY KEY([MigrationId]) WITH (FILLFACTOR=100,
+		DATA_COMPRESSION = NONE) ON [PRIMARY]
+
+/****** Object: Primary Key [PK_bankCred]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PK_bankCred]') AND type IN ('PK', 'UQ')))
+BEGIN
+	ALTER TABLE [dbo].[bankCred]
+	DROP CONSTRAINT [PK_bankCred]
+END
+
+GO
+ALTER TABLE [dbo].[bankCred]
+ ADD CONSTRAINT [PK_bankCred] PRIMARY KEY([BankCredId]) WITH (FILLFACTOR=100,
+		DATA_COMPRESSION = NONE) ON [PRIMARY]
+
+/****** Object: Primary Key [PK_bookings]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PK_bookings]') AND type IN ('PK', 'UQ')))
+BEGIN
+	ALTER TABLE [dbo].[bookings]
+	DROP CONSTRAINT [PK_bookings]
+END
+
+GO
+ALTER TABLE [dbo].[bookings]
+ ADD CONSTRAINT [PK_bookings] PRIMARY KEY([BookingId]) WITH (FILLFACTOR=100,
+		DATA_COMPRESSION = NONE) ON [PRIMARY]
+
+/****** Object: Primary Key [PK_passenger]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PK_passenger]') AND type IN ('PK', 'UQ')))
+BEGIN
+	ALTER TABLE [dbo].[passenger]
+	DROP CONSTRAINT [PK_passenger]
+END
+
+GO
+ALTER TABLE [dbo].[passenger]
+ ADD CONSTRAINT [PK_passenger] PRIMARY KEY([PassengerId]) WITH (FILLFACTOR=100,
+		DATA_COMPRESSION = NONE) ON [PRIMARY]
+
+/****** Object: Primary Key [PK_quotas]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PK_quotas]') AND type IN ('PK', 'UQ')))
+BEGIN
+	ALTER TABLE [dbo].[quotas]
+	DROP CONSTRAINT [PK_quotas]
+END
+
+GO
+ALTER TABLE [dbo].[quotas]
+ ADD CONSTRAINT [PK_quotas] PRIMARY KEY([QuotaId]) WITH (FILLFACTOR=100,
+		DATA_COMPRESSION = NONE) ON [PRIMARY]
+
+/****** Object: Primary Key [PK_seat]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PK_seat]') AND type IN ('PK', 'UQ')))
+BEGIN
+	ALTER TABLE [dbo].[seat]
+	DROP CONSTRAINT [PK_seat]
+END
+
+GO
+ALTER TABLE [dbo].[seat]
+ ADD CONSTRAINT [PK_seat] PRIMARY KEY([SeatId]) WITH (FILLFACTOR=100,
+		DATA_COMPRESSION = NONE) ON [PRIMARY]
+
+/****** Object: Primary Key [PK_tickets]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PK_tickets]') AND type IN ('PK', 'UQ')))
+BEGIN
+	ALTER TABLE [dbo].[tickets]
+	DROP CONSTRAINT [PK_tickets]
+END
+
+GO
+ALTER TABLE [dbo].[tickets]
+ ADD CONSTRAINT [PK_tickets] PRIMARY KEY([TicketId]) WITH (FILLFACTOR=100,
+		DATA_COMPRESSION = NONE) ON [PRIMARY]
+
+/****** Object: Primary Key [PK_trains]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PK_trains]') AND type IN ('PK', 'UQ')))
+BEGIN
+	ALTER TABLE [dbo].[trains]
+	DROP CONSTRAINT [PK_trains]
+END
+
+GO
+ALTER TABLE [dbo].[trains]
+ ADD CONSTRAINT [PK_trains] PRIMARY KEY([TrainId]) WITH (FILLFACTOR=100,
+		DATA_COMPRESSION = NONE) ON [PRIMARY]
+
+/****** Object: Primary Key [PK_transaction]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PK_transaction]') AND type IN ('PK', 'UQ')))
+BEGIN
+	ALTER TABLE [dbo].[transaction]
+	DROP CONSTRAINT [PK_transaction]
+END
+
+GO
+ALTER TABLE [dbo].[transaction]
+ ADD CONSTRAINT [PK_transaction] PRIMARY KEY([TransactionId]) WITH (FILLFACTOR=100,
+		DATA_COMPRESSION = NONE) ON [PRIMARY]
+
+/****** Object: Primary Key [PK_users]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[PK_users]') AND type IN ('PK', 'UQ')))
+BEGIN
+	ALTER TABLE [dbo].[users]
+	DROP CONSTRAINT [PK_users]
+END
+
+GO
+ALTER TABLE [dbo].[users]
+ ADD CONSTRAINT [PK_users] PRIMARY KEY([UserId]) WITH (FILLFACTOR=100,
+		DATA_COMPRESSION = NONE) ON [PRIMARY]
+
+/****** Object: Index [dbo].[bankCred].[IX_bankCred_UserId]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[bankCred]') AND name = N'IX_bankCred_UserId'))
+BEGIN
+	DROP INDEX [IX_bankCred_UserId] ON [dbo].[bankCred]
+END
+
+GO
+CREATE INDEX [IX_bankCred_UserId]
+ ON [dbo].[bankCred] ([UserId])
+WITH (FILLFACTOR=100,
+	DATA_COMPRESSION = NONE)
+ON [PRIMARY]
+
+/****** Object: Index [dbo].[bookings].[IX_bookings_QuotaId]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[bookings]') AND name = N'IX_bookings_QuotaId'))
+BEGIN
+	DROP INDEX [IX_bookings_QuotaId] ON [dbo].[bookings]
+END
+
+GO
+CREATE INDEX [IX_bookings_QuotaId]
+ ON [dbo].[bookings] ([QuotaId])
+WITH (FILLFACTOR=100,
+	DATA_COMPRESSION = NONE)
+ON [PRIMARY]
+
+/****** Object: Index [dbo].[seat].[IX_seat_TrainId]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[seat]') AND name = N'IX_seat_TrainId'))
+BEGIN
+	DROP INDEX [IX_seat_TrainId] ON [dbo].[seat]
+END
+
+GO
+CREATE UNIQUE INDEX [IX_seat_TrainId]
+ ON [dbo].[seat] ([TrainId])
+WITH (FILLFACTOR=100,
+	DATA_COMPRESSION = NONE)
+ON [PRIMARY]
+
+/****** Object: Index [dbo].[tickets].[IX_tickets_TransactionId]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[tickets]') AND name = N'IX_tickets_TransactionId'))
+BEGIN
+	DROP INDEX [IX_tickets_TransactionId] ON [dbo].[tickets]
+END
+
+GO
+CREATE INDEX [IX_tickets_TransactionId]
+ ON [dbo].[tickets] ([TransactionId])
+WITH (FILLFACTOR=100,
+	DATA_COMPRESSION = NONE)
+ON [PRIMARY]
+
+/****** Object: Index [dbo].[tickets].[IX_tickets_UserId]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[tickets]') AND name = N'IX_tickets_UserId'))
+BEGIN
+	DROP INDEX [IX_tickets_UserId] ON [dbo].[tickets]
+END
+
+GO
+CREATE INDEX [IX_tickets_UserId]
+ ON [dbo].[tickets] ([UserId])
+WITH (FILLFACTOR=100,
+	DATA_COMPRESSION = NONE)
+ON [PRIMARY]
+
+/****** Object: Index [dbo].[transaction].[IX_transaction_BookingId]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.indexes WHERE object_id = OBJECT_ID(N'[dbo].[transaction]') AND name = N'IX_transaction_BookingId'))
+BEGIN
+	DROP INDEX [IX_transaction_BookingId] ON [dbo].[transaction]
+END
+
+GO
+CREATE INDEX [IX_transaction_BookingId]
+ ON [dbo].[transaction] ([BookingId])
+WITH (FILLFACTOR=100,
+	DATA_COMPRESSION = NONE)
+ON [PRIMARY]
+
+/****** Object: Foreign Key [FK_bankCred_users_UserId]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[FK_bankCred_users_UserId]') AND type ='F'))
+BEGIN
+	ALTER TABLE [dbo].[bankCred]
+	DROP CONSTRAINT [FK_bankCred_users_UserId]
+END
+
+GO
+ALTER TABLE [dbo].[bankCred]
+ ADD CONSTRAINT [FK_bankCred_users_UserId] FOREIGN KEY ([UserId])
+		REFERENCES [dbo].[users] ([UserId])
+	 ON DELETE CASCADE
+
+/****** Object: Foreign Key [FK_bookings_quotas_QuotaId]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[FK_bookings_quotas_QuotaId]') AND type ='F'))
+BEGIN
+	ALTER TABLE [dbo].[bookings]
+	DROP CONSTRAINT [FK_bookings_quotas_QuotaId]
+END
+
+GO
+ALTER TABLE [dbo].[bookings]
+ ADD CONSTRAINT [FK_bookings_quotas_QuotaId] FOREIGN KEY ([QuotaId])
+		REFERENCES [dbo].[quotas] ([QuotaId])
+	
+
+/****** Object: Foreign Key [FK_seat_trains_TrainId]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[FK_seat_trains_TrainId]') AND type ='F'))
+BEGIN
+	ALTER TABLE [dbo].[seat]
+	DROP CONSTRAINT [FK_seat_trains_TrainId]
+END
+
+GO
+ALTER TABLE [dbo].[seat]
+ ADD CONSTRAINT [FK_seat_trains_TrainId] FOREIGN KEY ([TrainId])
+		REFERENCES [dbo].[trains] ([TrainId])
+	 ON DELETE CASCADE
+
+/****** Object: Foreign Key [FK_tickets_transaction_TransactionId]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[FK_tickets_transaction_TransactionId]') AND type ='F'))
+BEGIN
+	ALTER TABLE [dbo].[tickets]
+	DROP CONSTRAINT [FK_tickets_transaction_TransactionId]
+END
+
+GO
+ALTER TABLE [dbo].[tickets]
+ ADD CONSTRAINT [FK_tickets_transaction_TransactionId] FOREIGN KEY ([TransactionId])
+		REFERENCES [dbo].[transaction] ([TransactionId])
+	
+
+/****** Object: Foreign Key [FK_tickets_users_UserId]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[FK_tickets_users_UserId]') AND type ='F'))
+BEGIN
+	ALTER TABLE [dbo].[tickets]
+	DROP CONSTRAINT [FK_tickets_users_UserId]
+END
+
+GO
+ALTER TABLE [dbo].[tickets]
+ ADD CONSTRAINT [FK_tickets_users_UserId] FOREIGN KEY ([UserId])
+		REFERENCES [dbo].[users] ([UserId])
+	
+
+/****** Object: Foreign Key [FK_transaction_bookings_BookingId]   Script Date: 09-06-2024 18:41:19 ******/
+GO
+IF (EXISTS(SELECT * FROM sys.objects WHERE object_id = OBJECT_ID(N'[dbo].[FK_transaction_bookings_BookingId]') AND type ='F'))
+BEGIN
+	ALTER TABLE [dbo].[transaction]
+	DROP CONSTRAINT [FK_transaction_bookings_BookingId]
+END
+
+GO
+ALTER TABLE [dbo].[transaction]
+ ADD CONSTRAINT [FK_transaction_bookings_BookingId] FOREIGN KEY ([BookingId])
+		REFERENCES [dbo].[bookings] ([BookingId])
+	
